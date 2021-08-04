@@ -1,11 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Scan from './screens/Scan';
 
-export default function App() {
+export default function Stijl() {
   return (
     <View style={styles.container}>
-     <Scan/>
+      <Text>Stijl</Text>
       
     </View>
   );
