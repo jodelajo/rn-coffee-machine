@@ -19,5 +19,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 22,
     letterSpacing: 0.374,
+    marginTop: 8
   },
 });

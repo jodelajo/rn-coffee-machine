@@ -58,11 +58,11 @@ export default function CardSvg() {
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
+    // position: "absolute",
    
-    left: -42,
-    top: 192,
-    zIndex: 1,
+    // left: -42,
+    // top: -208,
+    // zIndex: 1,
    
   },
 });

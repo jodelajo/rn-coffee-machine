@@ -1,16 +1,14 @@
-import React, { useState} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Scan from './screens/Scan';
-import Header from './components/Header';
-import AppLoading from 'expo-app-loading';
-import * as Font from 'expo-font';
-
-
+import React, { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import Scan from "./screens/Scan";
+import Header from "./components/Header";
+import AppLoading from "expo-app-loading";
+import * as Font from "expo-font";
 
 function fetchFonts() {
   return Font.loadAsync({
-    "avenirNext": require("./assets/fonts/AvenirNext-Regular.ttf"),
-    "avenirNextBold": require("./assets/fonts/AvenirNext-Bold.ttf"),
+    avenirNext: require("./assets/fonts/AvenirNext-Regular.ttf"),
+    avenirNextBold: require("./assets/fonts/AvenirNext-Bold.ttf"),
   });
 }
 
@@ -29,9 +27,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Header/>
-     <Scan/>
-      
+      <Header />
+      <Scan />
     </View>
   );
 }
@@ -39,9 +36,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
-   
+    width: "100%",
+    padding: 0,
+    margin: 0,
+    backgroundColor: "#ffffff",
+    flexDirection: "column",
+    alignItems: "stretch",
+    justifyContent: "space-around",
   },
 });

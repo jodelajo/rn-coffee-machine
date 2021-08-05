@@ -17,5 +17,6 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     fontSize: 24,
     letterSpacing: 0.374,
+    marginTop: 4
   },
 });

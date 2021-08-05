@@ -19,10 +19,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     // alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 50,
+    paddingTop: 60,
     paddingLeft: 12,
     height: 130,
     left: 0,
     top: 0,
+    zIndex: 2,
   },
 });
