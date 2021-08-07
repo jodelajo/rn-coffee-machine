@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import CoffeeContextProvider from "./context/CoffeeContext";
+
+import CoffeeNavigator from "./navigation/Navigator";
+
 import Scan from "./screens/Scan";
 import Header from "./components/Header";
 import AppLoading from "expo-app-loading";
@@ -26,10 +31,16 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Header />
-      <Scan />
-    </View>
+    <NavigationContainer>
+      <CoffeeContextProvider>
+        <CoffeeNavigator />
+      </CoffeeContextProvider>
+    </NavigationContainer>
+
+    // <View style={styles.container}>
+    //   {/* <Header /> */}
+    //   <Scan />
+    // </View>
   );
 }
 

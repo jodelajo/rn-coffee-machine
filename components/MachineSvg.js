@@ -1,14 +1,18 @@
 import React from "react";
-import { View, Dimensions } from "react-native";
+import { View, Dimensions, TouchableOpacity } from "react-native";
 import Svg, { Path, Mask, Rect, G, Defs, ClipPath } from "react-native-svg";
+import { useNavigation } from '@react-navigation/native';
 
-export default function MachineSvg() {
+
+export default function MachineSvg({ navigation}) {
+  const altNavigation = useNavigation()
   const originalWidth = 375;
   const originalHeight = 410;
   const aspectRatio = originalWidth / originalHeight;
   const windowWidth = Dimensions.get("window").width;
 
   return (
+    <TouchableOpacity onPress={()=> altNavigation.navigate("Stijl")}>
     <View style={{width: windowWidth,  aspectRatio}}>
      <Svg width="100%" height="100%" viewBox={`0 0 ${originalWidth} ${originalHeight}`} fill="none" xmlns="http://www.w3.org/2000/svg">
 <G clip-path="url(#clip0)">
@@ -29,6 +33,7 @@ export default function MachineSvg() {
 </Svg>
 
     </View>
+    </TouchableOpacity>
   );
 }
 

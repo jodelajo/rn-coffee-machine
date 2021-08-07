@@ -3,11 +3,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import Title from './Title';
 import SubTitle from './SubTitle';
 
-export default function Header() {
+export default function Header({ titleContent, subTitleContent}) {
   return (
     <View style={styles.container}>
-     <Title content={'Dark Roasted Beans'} />
-     <SubTitle content={'Tab the machine to start'} />
+     <Title content={titleContent} />
+     <SubTitle content={subTitleContent} />
       
     </View>
   );
@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     backgroundColor: '#ffffff',
+    color: 'black',
     // alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 60,
