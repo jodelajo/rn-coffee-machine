@@ -31,8 +31,8 @@ export default function CoffeeNavigator() {
     <Stack.Navigator >
       <Stack.Screen name="Scan" component={Scan} options={screenOptionsScan}  />
       <Stack.Screen name="Stijl" component={Stijl} options={screenOptionsStijl} />
-      <Stack.Screen name="Size" component={Size} />
-      <Stack.Screen name="Extra" component={Extra} />
+      <Stack.Screen name="Size" component={Size} options={screenOptionsStijl}/>
+      <Stack.Screen name="Extra" component={Extra} options={screenOptionsStijl}/>
     </Stack.Navigator>
   );
 }

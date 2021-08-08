@@ -6,16 +6,23 @@ import LungoIcon from './LungoIcon';
 import { useNavigation } from '@react-navigation/native';
 
 
-export default function CoffeeDetail({title}) {
+export default function CoffeeDetail({content, onPressHandler, id, sizes, extras }) {
+    
 
     const altNavigation = useNavigation()
+
+    function WhiteTextHandler() {
+
+    }
+
+ 
 
 return (
     <View style={styles.container} >
 
-        <TouchableOpacity style={styles.listItem} onPress={()=> altNavigation.navigate("Size")}>
-           
-            <WhiteText content={title}/>
+        <TouchableOpacity style={styles.listItem} onPress={onPressHandler}>
+          
+            <WhiteText content={content} />
         </TouchableOpacity>
     </View>
 )
@@ -26,10 +33,12 @@ const styles = StyleSheet.create({
 container: {
     backgroundColor: Colors.green,
     width: '100%',
-    height: '20%',
+    height: 70,
     marginBottom: 10,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
     // alignSelf: 'stretch',
-    justifyContent: 'space-evenly',
+   
     borderRadius: 4,
    
 },

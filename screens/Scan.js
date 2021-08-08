@@ -2,20 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import MachineSvg from "../components/MachineSvg";
 import Header from "../components/Header";
-import Title from "../components/Title";
-import SubTitle from "../components/SubTitle";
-import { AntDesign } from "@expo/vector-icons";
-import { BackButton } from "react-router-native";
 
-// function HeaderHandler() {
-//   return(
-// <View style={styles.header}>
-//   <Title content={'Dark Roasted Beans'} />
-//   <SubTitle content={'Tab the machine to start'} />
-
-//  </View>
-//   )
-// }
 
 export default function Scan({ navigation }) {
  
