@@ -7,6 +7,7 @@ import Scan from "../screens/Scan";
 import Extra from "../screens/Extra";
 import Size from "../screens/Size";
 import Stijl, { screenOptionsStijl } from "../screens/Stijl";
+import Test from "../screens/Test"
 import { screenOptionsScan } from "../screens/Scan";
 
 const Stack = createNativeStackNavigator();
@@ -33,6 +34,7 @@ export default function CoffeeNavigator() {
       <Stack.Screen name="Stijl" component={Stijl} options={screenOptionsStijl} />
       <Stack.Screen name="Size" component={Size} options={screenOptionsStijl}/>
       <Stack.Screen name="Extra" component={Extra} options={screenOptionsStijl}/>
+      <Stack.Screen name="Test" component={Test} options={screenOptionsStijl}/>
     </Stack.Navigator>
   );
 }
