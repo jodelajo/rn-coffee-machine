@@ -40,16 +40,12 @@ export default function CoffeeContextProvider({ children }) {
     setSizes(result.sizes);
   }
 
-  // console.log('contextdata', coffeeData);
-  // console.log('extras', extras);
-  // console.log('sel size', selectedSize);
   console.log('all', selectedAll);
   console.log('s', sugar);
   console.log('milk', milk);
 
   const data = {
-    // coffeeData: coffeeData,
-    // setCoffeeData: setCoffeeData,
+ 
     types: types,
     extras: extras,
     sizes: sizes,
