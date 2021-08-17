@@ -11,7 +11,9 @@ export default function CoffeeDetail({
   id,
   sizes,
   extras,
-}) {
+})
+
+{
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.listItem} onPress={onPressHandler}>

@@ -5,27 +5,29 @@ import { CoffeeContext } from "../context/CoffeeContext";
 import CoffeeDetail from "../components/CoffeeDetail";
 
 export default function Stijl({ navigation, route }) {
-  const { types, sizes, extras, coffeeTypeHandler, setCoffeeData } =
+  const { types, setSelectedCoffee } =
     useContext(CoffeeContext);
-  const [coffeeTypes, setCoffeeTypes] = useState([]);
+  const [coffeeTypes, setCoffeeTypes] = useState();
+  const [selectedType, setSelectedType] = useState()
 
-  console.log("types", coffeeTypes);
-  // console.log('sizes', sizes);
-  console.log('size!!',route)
 
   useEffect(() => {
     setCoffeeTypes(types);
-    setCoffeeData(types)
-  }, []);
+    setSelectedCoffee(selectedType)
+   
+  }, [selectedType]);
 
 
-
+// console.log('sel', selectedType);
+// console.log('sll, uit de context', selectedCoffee);
+// console.log('coffeetypes', coffeeTypes);
 
   function renderCoffeeItem(itemData, index) {
     return (
       <CoffeeDetail
         content={itemData.item.name}
         onPressHandler={() => {
+          setSelectedType(itemData.item.name)
           navigation.navigate("Size", {
             coffeeName: itemData.item.name,
             coffeeId: itemData.item._id,

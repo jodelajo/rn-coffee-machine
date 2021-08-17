@@ -5,12 +5,13 @@ import { CoffeeContext } from "../context/CoffeeContext";
 import CoffeeDetail from "../components/CoffeeDetail";
 
 export default function Size({ navigation, route }) {
-  const { coffeeSizes, coffeeExtras } = route.params;
-  const { sizes, extras } = useContext(CoffeeContext);
+  const { coffeeSizes, coffeeExtras, coffeeNames   } = route.params;
+  const { sizes, extras, setSelectedSize, selectedSize } = useContext(CoffeeContext);
  
   const [large, setLarge] = useState({});
   const [venti, setVenti] = useState({});
   const [tall, setTall] = useState({})
+  const [size, setSize] =useState()
 
   const [sugar, setSugar] = useState({})
   const [normalSugar, setNormalSugar ] = useState()
@@ -20,10 +21,13 @@ export default function Size({ navigation, route }) {
   useEffect(() => {
     setLarge(largeCoffee);
     setVenti(ventiCoffee);
-    setTall(tallCoffee)
+    setTall(tallCoffee);
+    setSelectedSize(size)
+    // setSelectedCoffee([...selectedCoffee], size)
+    // setNaam(coffeeNames)
     
 
-  }, [coffeeSizes]);
+  }, [coffeeSizes, size]);
 
   const largeCoffee = sizes.find((size) => {
     return size.name === "Large";
@@ -49,14 +53,15 @@ const coffeeContent = coffeeSizes.map((size) => {
 })
 
 
-console.log('coffeeNems', coffeeExtras);
+// console.log('coffeeNems', coffeeExtras);
 
 
 const sugarOptions = extras.find((size) => {
   return size.name === "Select the amount of sugar";
 });
 
-console.log('sugarObject',sugarOptions.name);
+// console.log('sugarObject',coffeeContent);
+// console.log('selected size', size);
 
 
 
@@ -66,6 +71,7 @@ console.log('sugarObject',sugarOptions.name);
         content={itemData.item}
         index={index}
         onPressHandler={() => {
+          setSize(itemData.item)
           navigation.navigate("Extra", {
             
             
@@ -85,7 +91,7 @@ console.log('sugarObject',sugarOptions.name);
         <FlatList
           data={coffeeContent}
           renderItem={renderCoffeeItem}
-          keyExtractor={(item, index) => item}
+          keyExtractor={(item, index) => index.toString()}
         />
       </View>
     </View>
