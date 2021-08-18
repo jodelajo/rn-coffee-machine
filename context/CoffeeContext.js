@@ -17,20 +17,11 @@ export default function CoffeeContextProvider({ children }) {
  
   const selectedAll = {selectedCoffee, selectedSize, selectedSugar, selectedMilk}
 
-
-
-
   useEffect(() => {
     getCoffeeData();
-   
   }, []);
 
-
-  useEffect(() => {
-    setSugar(extras[0])
-    setMilk(extras[1])
-  }, [extras])
-
+ 
   async function getCoffeeData() {
     let result = await useFetchCoffeeAPI();
 
@@ -38,24 +29,35 @@ export default function CoffeeContextProvider({ children }) {
     setExtras(result.extras);
     setTypes(result.types);
     setSizes(result.sizes);
+   
   }
 
   console.log('all', selectedAll);
-  console.log('s', sugar);
+// console.log(coffeeData);
+
+  function extraHandler() {
+    if (extras) {
+      setSugar(extras[0])
+      setMilk(extras[1]);
+    }
+  }
+  
   console.log('milk', milk);
+  console.log('sugar', sugar);
 
   const data = {
- 
     types: types,
     extras: extras,
     sizes: sizes,
     sugar: sugar,
+    milk, milk,
     selectedCoffee: selectedCoffee,
     setSelectedCoffee,
     selectedSize: selectedSize,
     setSelectedSize,
     selectedSugar: selectedSugar,
-    setSelectedSugar
+    setSelectedSugar,
+    extraHandler
   };
 
   return (

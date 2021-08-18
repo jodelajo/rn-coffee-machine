@@ -13,20 +13,13 @@ export default function Size({ navigation, route }) {
   const [tall, setTall] = useState({})
   const [size, setSize] =useState()
 
-  const [sugar, setSugar] = useState({})
-  const [normalSugar, setNormalSugar ] = useState()
-  const [milk, setMilk] = useState()
- 
+  
 
   useEffect(() => {
-    setLarge(largeCoffee);
-    setVenti(ventiCoffee);
-    setTall(tallCoffee);
+    // setLarge(largeCoffee);
+    // setVenti(ventiCoffee);
+    // setTall(tallCoffee);
     setSelectedSize(size)
-    // setSelectedCoffee([...selectedCoffee], size)
-    // setNaam(coffeeNames)
-    
-
   }, [coffeeSizes, size]);
 
   const largeCoffee = sizes.find((size) => {
@@ -41,25 +34,27 @@ const tallCoffee = sizes.find((size) => {
   return size.name === "Tall"
 })
 
+// console.log('largeCoffee', largeCoffee);
 
 const coffeeContent = coffeeSizes.map((size) => {
-  if (size === large._id) {
-    return large.name
-  } if (size === venti._id) {
-    return venti.name
-  } if (size === tall._id) {
-    return tall.name
+  if (size === largeCoffee._id) {
+    return largeCoffee.name
+  } if (size === ventiCoffee._id) {
+    return ventiCoffee.name
+  } if (size === tallCoffee._id) {
+    return tallCoffee.name
   }
 })
 
 
-// console.log('coffeeNems', coffeeExtras);
+console.log('coffeeNems', coffeeExtras);
 
 
-const sugarOptions = extras.find((size) => {
-  return size.name === "Select the amount of sugar";
-});
+// const sugarOptions = extras.find((size) => {
+//   return size.name === "Select the amount of sugar";
+// });
 
+// console.log(sugarOptions);
 // console.log('sugarObject',coffeeContent);
 // console.log('selected size', size);
 
@@ -73,11 +68,7 @@ const sugarOptions = extras.find((size) => {
         onPressHandler={() => {
           setSize(itemData.item)
           navigation.navigate("Extra", {
-            
-            
-           sugarOptions: sugarOptions
-           
-            
+            coffeeExtras: coffeeExtras,  
           });
         }}
       />

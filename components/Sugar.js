@@ -1,29 +1,51 @@
-import React, { useState, useEffect, useContext} from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import React, {useContext} from "react";
+import { StyleSheet, View} from "react-native";
 import { CoffeeContext } from "../context/CoffeeContext";
-import CoffeeDetail from "./CoffeeDetail";
-import WhiteText from "./WhiteText";
 import Colors from "../constants/Colors";
 import ModalDropdown from "react-native-modal-dropdown";
 
 
-export default function Sugar({ content, subselections }) {
-    const { sizes, extras, setSelectedSize, selectedSize } = useContext(CoffeeContext);
-    
+export default function Sugar({ content, optionsSugar }) {
+const { sugar, setSelectedSugar } = useContext(CoffeeContext);
+
+
+const normal = sugar.subselections.find((sugar) => {
+  return sugar.name === "Normal";
+});
+
+const lot = sugar.subselections.find((sugar) => {
+  return sugar.name === "A lot"
+})
+
+const sugarContent = sugar.subselections.map((type) => {
+  if (type._id === lot._id ) {
+    return lot.name
+  }
+  if (type._id === normal._id) {
+    return normal.name
+  }
+})
 
 
 
+function onSelectHandler(name) {
+  setSelectedSugar(sugarContent[name])
+}
 
   return (
     <View style={styles.container}>
-      {/* <WhiteText content={content}/> */}
+   
       <ModalDropdown
         defaultValue={content}
         defaultTextStyle={styles.text}
         dropdownStyle={styles.dropdown}
         dropdownTextStyle={styles.dropdownText}
         isFullWidth={true}
-        options={['boe', 'jaja']}
+        options={sugarContent}
+        extraData={optionsSugar}
+        onSelect={onSelectHandler}
+        // onDropdownWillHide={() => false}
+        // onDropdownWillShow={() => true}
       />
    </View>
   );
@@ -59,5 +81,6 @@ const styles = StyleSheet.create({
 
   dropdown: {
     backgroundColor: Colors.green,
+    
   },
 });
