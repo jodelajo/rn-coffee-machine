@@ -1,33 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import React, { useContext } from "react";
+import { StyleSheet, View, ScrollView } from "react-native";
 import { CoffeeContext } from "../context/CoffeeContext";
-import CoffeeDetail from "../components/CoffeeDetail";
 import SubTitle from "../components/SubTitle";
 import Sugar from "../components/Sugar";
+import Milk from "../components/Milk";
 
-export default function Extra({ navigation, route }) {
-  const { coffeeExtras, sugarOptions } = route.params;
-  const {  extras, sugar } = useContext(CoffeeContext);
-  const [options, setOptions] = useState()
-  
-
-useEffect(() =>{
-  setOptions(coffeeExtras)
-},[])
-
-
-
-console.log('options', options);
-
+export default function Extra() {
+  const { hasMilk, hasSugar } = useContext(CoffeeContext);
 
   return (
-    <View style={styles.container}>
-      <SubTitle content="Select your Extra's" />
-      <View style={styles.coffeeDetail}>
-      <Sugar content={sugar.name} optionsSugar={options}/>
+    <ScrollView >
+      <View style={styles.container}>
+        <SubTitle content="Select your Extra's" />
+        <View style={styles.coffeeDetail}>
+          {hasMilk && <Milk />}
+          {hasSugar && <Sugar />}
+        </View>
       </View>
-     
-    </View>
+    </ScrollView>
   );
 }
 

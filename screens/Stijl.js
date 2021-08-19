@@ -5,7 +5,7 @@ import { CoffeeContext } from "../context/CoffeeContext";
 import CoffeeDetail from "../components/CoffeeDetail";
 
 export default function Stijl({ navigation, route }) {
-  const { types, setSelectedCoffee, extraHandler } =
+  const { types, setSelectedCoffee, extraHandler, setHasMilk, setHasSugar } =
     useContext(CoffeeContext);
   const [coffeeTypes, setCoffeeTypes] = useState();
   const [selectedType, setSelectedType] = useState()
@@ -15,11 +15,12 @@ export default function Stijl({ navigation, route }) {
     setCoffeeTypes(types);
     setSelectedCoffee(selectedType)
     extraHandler()
-   
+    setHasMilk(false)
+    setHasSugar(false)
   }, [selectedType]);
 
 
-// console.log('sel', selectedType);
+console.log('sel', selectedType);
 // console.log('sll, uit de context', selectedCoffee);
 // console.log('coffeetypes', coffeeTypes);
 // console.log('types', types);

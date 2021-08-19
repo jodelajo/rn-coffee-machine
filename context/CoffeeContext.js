@@ -10,6 +10,8 @@ export default function CoffeeContextProvider({ children }) {
   const [extras, setExtras] = useState();
   const [sugar, setSugar] = useState()
   const [milk, setMilk] = useState()
+  const [hasMilk, setHasMilk] = useState(false)
+  const [hasSugar, setHasSugar] = useState(false)
   const [selectedCoffee, setSelectedCoffee] = useState()
   const [selectedSize, setSelectedSize ] = useState()
   const [selectedSugar, setSelectedSugar] = useState()
@@ -34,6 +36,12 @@ export default function CoffeeContextProvider({ children }) {
 
   console.log('all', selectedAll);
 // console.log(coffeeData);
+// console.log('sug', selectedSugar);
+// function hasExtraHandler() {
+//   if (types.extras) {
+//     setHasSugar(true)
+//   }
+// }
 
   function extraHandler() {
     if (extras) {
@@ -41,22 +49,33 @@ export default function CoffeeContextProvider({ children }) {
       setMilk(extras[1]);
     }
   }
+
+//   console.log('melk', hasMilk);
+// console.log('suiker', hasSugar);
+// console.log('typess', types);
+
   
-  console.log('milk', milk);
-  console.log('sugar', sugar);
+  // console.log('milk', milk);
+  // console.log('sugar', sugar._id);
 
   const data = {
     types: types,
     extras: extras,
     sizes: sizes,
     sugar: sugar,
-    milk, milk,
+    milk: milk,
+    hasMilk: hasMilk,
+    setHasMilk,
+    hasSugar: hasSugar,
+    setHasSugar,
     selectedCoffee: selectedCoffee,
     setSelectedCoffee,
     selectedSize: selectedSize,
     setSelectedSize,
     selectedSugar: selectedSugar,
     setSelectedSugar,
+    selectedMilk: selectedMilk,
+    setSelectedMilk,
     extraHandler
   };
 

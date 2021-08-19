@@ -6,13 +6,15 @@ import CoffeeDetail from "../components/CoffeeDetail";
 
 export default function Size({ navigation, route }) {
   const { coffeeSizes, coffeeExtras, coffeeNames   } = route.params;
-  const { sizes, extras, setSelectedSize, selectedSize } = useContext(CoffeeContext);
+  const { sizes, extras, setSelectedSize, selectedSize, milk, sugar,  setHasMilk, setHasSugar } = useContext(CoffeeContext);
  
-  const [large, setLarge] = useState({});
-  const [venti, setVenti] = useState({});
-  const [tall, setTall] = useState({})
+  // const [large, setLarge] = useState({});
+  // const [venti, setVenti] = useState({});
+  // const [tall, setTall] = useState({})
   const [size, setSize] =useState()
-
+  const [extraOptions, setExtraOptions] = useState()
+  // const [hasMilk, setHasMilk] = useState(false)
+  // const [hasSugar, setHasSugar] = useState(false)
   
 
   useEffect(() => {
@@ -20,6 +22,8 @@ export default function Size({ navigation, route }) {
     // setVenti(ventiCoffee);
     // setTall(tallCoffee);
     setSelectedSize(size)
+    setMilk()
+    setSugar()
   }, [coffeeSizes, size]);
 
   const largeCoffee = sizes.find((size) => {
@@ -48,6 +52,32 @@ const coffeeContent = coffeeSizes.map((size) => {
 
 
 console.log('coffeeNems', coffeeExtras);
+console.log('melkie', milk);
+function setMilk() {
+  if (coffeeExtras.includes(milk._id)) {
+    setHasMilk(true)
+  }
+}
+function setSugar() {
+  if (coffeeExtras.includes(sugar._id)) {
+    setHasSugar(true)
+  }
+}
+
+
+
+// const extraOpt = coffeeExtras.map((extra) => {
+//   if (extra === milk._id)
+//   {return 'milk'}
+// if(extra === sugar._id) {
+//   return 'sugar'
+// }
+
+// })
+
+
+
+
 
 
 // const sugarOptions = extras.find((size) => {

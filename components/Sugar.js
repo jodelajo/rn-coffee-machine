@@ -1,86 +1,134 @@
-import React, {useContext} from "react";
-import { StyleSheet, View} from "react-native";
+import React, { useContext, useState } from "react";
+import { StyleSheet, View } from "react-native";
 import { CoffeeContext } from "../context/CoffeeContext";
 import Colors from "../constants/Colors";
-import ModalDropdown from "react-native-modal-dropdown";
+import { List, Divider } from "react-native-paper";
+import { Ionicons } from "@expo/vector-icons";
 
+export default function Sugar() {
+  const { sugar, setSelectedSugar } = useContext(CoffeeContext);
+  const [expanded, setExpanded] = useState(true);
+  const [checkedAlot, setCheckedAlot] = useState(false);
+  const [checkedNormal, setCheckedNormal] = useState(false);
 
-export default function Sugar({ content, optionsSugar }) {
-const { sugar, setSelectedSugar } = useContext(CoffeeContext);
+  const handlePress = () => {
+    setExpanded(!expanded);
+  };
 
+  const normal = sugar.subselections.find((sugar) => {
+    return sugar.name === "Normal";
+  });
 
-const normal = sugar.subselections.find((sugar) => {
-  return sugar.name === "Normal";
-});
+  const lot = sugar.subselections.find((sugar) => {
+    return sugar.name === "A lot";
+  });
 
-const lot = sugar.subselections.find((sugar) => {
-  return sugar.name === "A lot"
-})
+  const sugarContent = sugar.subselections.map((type) => {
+    if (type._id === lot._id) {
+      return lot.name;
+    }
+    if (type._id === normal._id) {
+      return normal.name;
+    }
+  });
 
-const sugarContent = sugar.subselections.map((type) => {
-  if (type._id === lot._id ) {
-    return lot.name
+  function onSelectHandlerAlot() {
+    setCheckedAlot(!checkedAlot);
+    setCheckedNormal(false);
+    setSelectedSugar(sugarContent[0]);
   }
-  if (type._id === normal._id) {
-    return normal.name
+  function onSelectHandlerNormal() {
+    setCheckedNormal(!checkedNormal);
+    setCheckedAlot(false);
+    setSelectedSugar(sugarContent[1]);
   }
-})
-
-
-
-function onSelectHandler(name) {
-  setSelectedSugar(sugarContent[name])
-}
 
   return (
     <View style={styles.container}>
-   
-      <ModalDropdown
-        defaultValue={content}
-        defaultTextStyle={styles.text}
-        dropdownStyle={styles.dropdown}
-        dropdownTextStyle={styles.dropdownText}
-        isFullWidth={true}
-        options={sugarContent}
-        extraData={optionsSugar}
-        onSelect={onSelectHandler}
-        // onDropdownWillHide={() => false}
-        // onDropdownWillShow={() => true}
-      />
-   </View>
+      <List.Section style={styles.section}>
+        <List.Accordion
+          title={sugar.name}
+          titleStyle={styles.listText}
+          expanded={!expanded}
+          onPress={handlePress}
+          style={styles.accordion}
+          right={(props) => <List.Icon {...props} />}
+        >
+          <Divider style={styles.divider} />
+          <List.Item
+            title={sugarContent[0]}
+            style={styles.item}
+            titleStyle={styles.listText}
+            right={(props) => (
+              <Ionicons
+                {...props}
+                name={
+                  !checkedAlot ? "ellipse-outline" : "checkmark-circle-outline"
+                }
+                size={32}
+                style={styles.icon}
+              />
+            )}
+            onPress={onSelectHandlerAlot}
+          />
+          <List.Item
+            title={sugarContent[1]}
+            style={styles.item}
+            titleStyle={styles.listText}
+            onPress={onSelectHandlerNormal}
+            right={(props) => (
+              <Ionicons
+                {...props}
+                name={
+                  !checkedNormal
+                    ? "ellipse-outline"
+                    : "checkmark-circle-outline"
+                }
+                size={32}
+                style={styles.icon}
+              />
+            )}
+          />
+        </List.Accordion>
+      </List.Section>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  divider: {
+    backgroundColor: "white",
+    height: 2,
+    marginBottom: 10,
+    marginHorizontal: 12,
+  },
+  section: {
     backgroundColor: Colors.green,
-    fontFamily: "avenirNext",
-    width: "100%",
-    height: 70,
-    alignItems: "stretch",
-    justifyContent: "center",
+    padding: 8,
     borderRadius: 4,
   },
-  text: {
-    
-    margin: 20,
+  listText: {
+    fontFamily: "avenirNext",
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: 20,
     letterSpacing: 0.374,
     color: "white",
-    backgroundColor: Colors.green,
+
+    // backgroundColor: Colors.green,
   },
-  dropdownText: {
+  item: {
     color: "white",
     backgroundColor: "#9BC88B",
-    marginHorizontal: 20,
-    marginVertical: 5,
-    height: 60,
+    marginVertical: 6,
+    marginHorizontal: 12,
+    borderRadius: 8,
   },
-
-  dropdown: {
+  accordion: {
     backgroundColor: Colors.green,
-    
+  },
+  icon: {
+    color: "white",
+    alignSelf: "center",
   },
 });

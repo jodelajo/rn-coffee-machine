@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import CoffeeContextProvider from "./context/CoffeeContext";
-
+import { Provider as PaperProvider } from "react-native-paper";
 import CoffeeNavigator from "./navigation/Navigator";
 
 import Scan from "./screens/Scan";
@@ -33,7 +33,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <CoffeeContextProvider>
-        <CoffeeNavigator />
+        <PaperProvider>
+          <CoffeeNavigator />
+        </PaperProvider>
       </CoffeeContextProvider>
     </NavigationContainer>
 
