@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 import { CoffeeContext } from "../context/CoffeeContext";
 import Colors from "../constants/Colors";
 import { List, Divider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
+
+
 
 export default function Milk() {
   const { milk, setSelectedMilk } = useContext(CoffeeContext);
@@ -67,6 +69,7 @@ export default function Milk() {
           expanded={!expanded}
           onPress={handlePress}
           style={styles.accordion}
+          left={(props) => <Image source={require('../assets/milk_icon.png')} size={46} {...props}/> }
           right={(props) => <List.Icon {...props} />}
         >
           <Divider style={styles.divider} />

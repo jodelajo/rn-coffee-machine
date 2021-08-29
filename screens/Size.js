@@ -5,22 +5,11 @@ import { CoffeeContext } from "../context/CoffeeContext";
 import CoffeeDetail from "../components/CoffeeDetail";
 
 export default function Size({ navigation, route }) {
-  const { coffeeSizes, coffeeExtras, coffeeNames   } = route.params;
-  const { sizes, extras, setSelectedSize, selectedSize, milk, sugar,  setHasMilk, setHasSugar } = useContext(CoffeeContext);
- 
-  // const [large, setLarge] = useState({});
-  // const [venti, setVenti] = useState({});
-  // const [tall, setTall] = useState({})
+  const { coffeeSizes, coffeeExtras } = route.params;
+  const { sizes, setSelectedSize,  milk, sugar,  setHasMilk, setHasSugar } = useContext(CoffeeContext);
   const [size, setSize] =useState()
-  const [extraOptions, setExtraOptions] = useState()
-  // const [hasMilk, setHasMilk] = useState(false)
-  // const [hasSugar, setHasSugar] = useState(false)
-  
 
   useEffect(() => {
-    // setLarge(largeCoffee);
-    // setVenti(ventiCoffee);
-    // setTall(tallCoffee);
     setSelectedSize(size)
     setMilk()
     setSugar()
@@ -38,7 +27,6 @@ const tallCoffee = sizes.find((size) => {
   return size.name === "Tall"
 })
 
-// console.log('largeCoffee', largeCoffee);
 
 const coffeeContent = coffeeSizes.map((size) => {
   if (size === largeCoffee._id) {
@@ -51,8 +39,6 @@ const coffeeContent = coffeeSizes.map((size) => {
 })
 
 
-console.log('coffeeNems', coffeeExtras);
-console.log('melkie', milk);
 function setMilk() {
   if (coffeeExtras.includes(milk._id)) {
     setHasMilk(true)
@@ -63,31 +49,6 @@ function setSugar() {
     setHasSugar(true)
   }
 }
-
-
-
-// const extraOpt = coffeeExtras.map((extra) => {
-//   if (extra === milk._id)
-//   {return 'milk'}
-// if(extra === sugar._id) {
-//   return 'sugar'
-// }
-
-// })
-
-
-
-
-
-
-// const sugarOptions = extras.find((size) => {
-//   return size.name === "Select the amount of sugar";
-// });
-
-// console.log(sugarOptions);
-// console.log('sugarObject',coffeeContent);
-// console.log('selected size', size);
-
 
 
   function renderCoffeeItem(itemData, index) {

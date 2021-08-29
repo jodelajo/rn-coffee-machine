@@ -8,7 +8,7 @@ export default function Scan({ navigation }) {
  
   return (
     <View style={styles.container}>
-      {/* <Header/> */}
+
       <MachineSvg />
      
       <Text style={styles.text}>How does this work?</Text>

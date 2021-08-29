@@ -1,7 +1,8 @@
-import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, {useContext, useEffect, useState} from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import Colors from "../constants/Colors";
 import WhiteText from "../components/WhiteText";
+import Icon from "../constants/Icon";
 
 import { CoffeeContext } from "../context/CoffeeContext";
 
@@ -11,12 +12,18 @@ export default function CoffeeDetail({
   id,
   sizes,
   extras,
+  source
 })
-
 {
+  const { types, iconSource } = useContext(CoffeeContext);
+  const [icons, setIcons] = useState()
+console.log('source', source);
+
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.listItem} onPress={onPressHandler}>
+        <Icon source={source}/>
         <WhiteText content={content} />
       </TouchableOpacity>
     </View>
