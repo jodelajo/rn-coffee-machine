@@ -1,32 +1,31 @@
-import React, { useContext, useState, useEffect } from "react";
-import { StyleSheet, View, ScrollView, Alert, Text } from "react-native";
+import React, { useContext } from "react";
+import { StyleSheet, View, ScrollView, Alert, Dimensions } from "react-native";
 import { CoffeeContext } from "../context/CoffeeContext";
 import SubTitle from "../components/SubTitle";
 import Sugar from "../components/Sugar";
 import Milk from "../components/Milk";
 import ConfirmButton from "../components/ConfirmButton";
 
-
 export default function Extra() {
-  const {
-    hasMilk,
-    hasSugar,
-    selectedAll
-  } = useContext(CoffeeContext);
+  const { hasMilk, hasSugar, selectedAll } = useContext(CoffeeContext);
 
-  // const hoi = "Your Choice";
-  // console.log("??", yourChoice);
-
-  // console.log('alla', selectedAll);
-
-  const yourChoice = `Type: ${selectedAll.selectedCoffee}\n Size: ${selectedAll.selectedSize}\n  Milk: ${hasMilk ?selectedAll.selectedMilk : "no milk"}\n Sugar: ${hasSugar ? selectedAll.selectedSugar : "No sugar"}`;
-
+  const title = "Your Choice";
+  const yourChoice = `Type: ${selectedAll.selectedCoffee}\n Size: ${
+    selectedAll.selectedSize
+  }\n  Milk: ${hasMilk ? selectedAll.selectedMilk : "no milk"}\n Sugar: ${
+    hasSugar ? selectedAll.selectedSugar : "No sugar"
+  }`;
 
   function onPressHandler() {
     Alert.alert(
-      `${hoi}`,
+      `${title}`,
       `${yourChoice}`,
-      [{ text: "Cheers", onPress: () => console.log("OK Pressed") }],
+      [
+        {
+          text: "Cheers",
+          onPress: () => console.log("your choice", selectedAll),
+        },
+      ],
       { cancelable: false }
     );
   }
@@ -41,7 +40,6 @@ export default function Extra() {
         </View>
         <View style={styles.button}>
           <ConfirmButton title="Your Choice" onPress={onPressHandler} />
-        
         </View>
       </View>
     </ScrollView>
@@ -52,11 +50,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#ffffff",
-    // alignItems: "flex-start",
-    justifyContent: "space-around",
+    justifyContent: "flex-start",
     paddingHorizontal: 10,
-    paddingVertical: 10,
-    height: "100%",
+    paddingTop: 10,
+    paddingBottom: 40,
+    minHeight: Dimensions.get("window").height * 1,
   },
   coffeeDetail: {
     paddingVertical: 10,
@@ -64,7 +62,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   button: {
-    marginTop: 80,
+    marginTop: 40,
     marginBottom: 40,
     alignSelf: "center",
   },

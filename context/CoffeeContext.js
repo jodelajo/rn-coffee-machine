@@ -1,10 +1,11 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useFetchCoffeeAPI } from "../data/CoffeeData";
+import Images from "../constants/Images";
 
 export const CoffeeContext = createContext({});
 
 export default function CoffeeContextProvider({ children }) {
-  const [coffeeData, setCoffeeData] = useState({});
+  const [coffeeData, setCoffeeData] = useState();
   const [sizes, setSizes] = useState();
   const [types, setTypes] = useState();
   const [extras, setExtras] = useState();
@@ -19,12 +20,28 @@ export default function CoffeeContextProvider({ children }) {
   const [cappuccino, setCappuccino] = useState();
   const [espresso, setEspresso] = useState();
   const [ristretto, setRistretto] = useState();
-  const [iconSource, setIconSource] = useState({
-    espresso: "../assets/espresso.png",
-    ristretto: "../assets/ristretto.png",
-    cappuccino: "../assets/cappuchino.png",
-  });
-  // const [icons, setIcons] = useState()
+  const [tall, setTall] = useState();
+  const [large, setLarge] = useState();
+  const [venti, setVenti] = useState();
+
+  useEffect(() => {
+    getCoffeeData();
+  }, []);
+
+  useEffect(() => {
+    if ((types, sizes)) {
+      iconHandler();
+      sizesHandler();
+    }
+  }, [types, sizes]);
+
+  async function getCoffeeData() {
+    let result = await useFetchCoffeeAPI();
+    setCoffeeData(result);
+    setExtras(result.extras);
+    setTypes(result.types);
+    setSizes(result.sizes);
+  }
 
   const selectedAll = {
     selectedCoffee,
@@ -32,35 +49,8 @@ export default function CoffeeContextProvider({ children }) {
     selectedSugar,
     selectedMilk,
   };
-
-  useEffect(() => {
-    getCoffeeData();
-  }, []);
-
-  // useEffect(() => {
-  //   iconHandler()
-  // },[coffeeData])
-
-  async function getCoffeeData() {
-    let result = await useFetchCoffeeAPI();
-
-    setCoffeeData(result);
-    setExtras(result.extras);
-    setTypes(result.types);
-    setSizes(result.sizes);
-  }
-
-  // console.log("all", selectedAll);
-  // console.log("icons", icons);
-  // console.log('icons', icons);
-  // console.log('types', types[0].name);
-  // console.log(coffeeData);
-  // console.log('sug', selectedSugar);
-  // function hasExtraHandler() {
-  //   if (types.extras) {
-  //     setHasSugar(true)
-  //   }
-  // }
+  const allCoffee = [espresso, cappuccino, ristretto];
+  const allSizes = [large, venti, tall];
 
   function extraHandler() {
     if (extras) {
@@ -73,55 +63,36 @@ export default function CoffeeContextProvider({ children }) {
     types &&
       types.map((type) => {
         if (type.name === "Espresso") {
-          setEspresso({ type, icon: iconSource.espresso });
+          setEspresso({ ...type, icon: Images.espresso });
         }
         if (type.name === "Cappuccino") {
-          setCappuccino({ type, icon: iconSource.cappuccino });
+          setCappuccino({ ...type, icon: Images.cappuccino });
         }
         if (type.name === "Ristretto") {
-          setRistretto({ type, icon: iconSource.ristretto });
+          setRistretto({ ...type, icon: Images.ristretto });
         }
       });
   }
 
-  // console.log("espresso", espresso);
-  // const allCoffee = espresso && cappuccino && ristretto && Object.assign(espresso, cappuccino, ristretto)
-  // console.log('conext all coffee', allCoffee);
-  // console.log('bla', blabla);
-
-  // const allCoffee = ;
-  //   const ristrettoCoffee = types.find((type) => {
-  //     return type.name === "Ristretto";
-  //   });
-
-  // const cappuccinoCoffee = types.find((type) => {
-  //   return type.name === "Cappuchino"
-  // })
-
-  // const espressoCoffee = types.find((type) => {
-  //   return type.name === "Espresso"
-  // })
-
-  // const coffeeContent = coffeeSizes.map((size) => {
-  //   if (size === largeCoffee._id) {
-  //     return largeCoffee.name
-  //   } if (size === ventiCoffee._id) {
-  //     return ventiCoffee.name
-  //   } if (size === tallCoffee._id) {
-  //     return tallCoffee.name
-  //   }
-  // })
-
-  //   console.log('melk', hasMilk);
-  // console.log('suiker', hasSugar);
-  // console.log('typess', types);
-
-  // console.log('milk', milk);
-  // console.log('sugar', sugar._id);
+  function sizesHandler() {
+    sizes &&
+      sizes.map((size) => {
+        if (size.name === "Tall") {
+          setTall({ ...size, icon: Images.tall });
+        }
+        if (size.name === "Large") {
+          setLarge({ ...size, icon: Images.large });
+        }
+        if (size.name === "Venti") {
+          setVenti({ ...size, icon: Images.venti });
+        }
+      });
+  }
 
   const data = {
     types,
-    // allCoffee,
+    allCoffee,
+    allSizes,
     espresso,
     cappuccino,
     ristretto,
@@ -129,7 +100,6 @@ export default function CoffeeContextProvider({ children }) {
     sizes,
     sugar,
     milk,
-    iconSource,
     setTypes,
     hasMilk,
     setHasMilk,
@@ -145,7 +115,6 @@ export default function CoffeeContextProvider({ children }) {
     selectedAll,
     setSelectedMilk,
     extraHandler,
-    iconHandler,
   };
 
   return (

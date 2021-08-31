@@ -5,8 +5,6 @@ import Colors from "../constants/Colors";
 import { List, Divider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 
-
-
 export default function Milk() {
   const { milk, setSelectedMilk } = useContext(CoffeeContext);
   const [expanded, setExpanded] = useState(true);
@@ -46,18 +44,27 @@ export default function Milk() {
     setCheckedOat(false);
     setCheckedCow(false);
     setSelectedMilk(milkContent[0]);
+    if (checkedSoy) {
+      setSelectedMilk("no milk");
+    }
   }
   function onSelectHandlerOat() {
     setCheckedOat(!checkedOat);
     setCheckedCow(false);
     setCheckedSoy(false);
     setSelectedMilk(milkContent[1]);
+    if (checkedOat) {
+      setSelectedMilk("no milk");
+    }
   }
   function onSelectHandlerCow() {
     setCheckedCow(!checkedCow);
     setCheckedOat(false);
     setCheckedSoy(false);
     setSelectedMilk(milkContent[2]);
+    if (checkedCow) {
+      setSelectedMilk("no milk");
+    }
   }
 
   return (
@@ -69,7 +76,13 @@ export default function Milk() {
           expanded={!expanded}
           onPress={handlePress}
           style={styles.accordion}
-          left={(props) => <Image source={require('../assets/milk_icon.png')} size={46} {...props}/> }
+          left={(props) => (
+            <Image
+              source={require("../assets/milk_icon.png")}
+              size={46}
+              {...props}
+            />
+          )}
           right={(props) => <List.Icon {...props} />}
         >
           <Divider style={styles.divider} />

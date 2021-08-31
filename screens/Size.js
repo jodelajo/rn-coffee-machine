@@ -1,67 +1,88 @@
 import React, { useEffect, useContext, useState } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 import SubTitle from "../components/SubTitle";
 import { CoffeeContext } from "../context/CoffeeContext";
 import CoffeeDetail from "../components/CoffeeDetail";
 
 export default function Size({ navigation, route }) {
   const { coffeeSizes, coffeeExtras } = route.params;
-  const { sizes, setSelectedSize,  milk, sugar,  setHasMilk, setHasSugar } = useContext(CoffeeContext);
-  const [size, setSize] =useState()
+  const {
+    sizes,
+    setSelectedSize,
+    setSelectedSugar,
+    setSelectedMilk,
+    milk,
+    sugar,
+    setHasMilk,
+    setHasSugar,
+    allSizes,
+  } = useContext(CoffeeContext);
+  const [size, setSize] = useState();
 
   useEffect(() => {
-    setSelectedSize(size)
-    setMilk()
-    setSugar()
-  }, [coffeeSizes, size]);
+    setSelectedSize(size);
+    setMilk();
+    setSugar();
+    setSelectedSugar("no sugar");
+    setSelectedMilk("no milk");
+  }, [size]);
+
 
   const largeCoffee = sizes.find((size) => {
     return size.name === "Large";
   });
 
-const ventiCoffee = sizes.find((size) => {
-  return size.name === "Venti"
-})
+  const ventiCoffee = sizes.find((size) => {
+    return size.name === "Venti";
+  });
 
-const tallCoffee = sizes.find((size) => {
-  return size.name === "Tall"
-})
+  const tallCoffee = sizes.find((size) => {
+    return size.name === "Tall";
+  });
+
+  const coffeeContent = coffeeSizes.map((size) => {
+    if (size === largeCoffee._id) {
+      return largeCoffee.name;
+    }
+    if (size === ventiCoffee._id) {
+      return ventiCoffee.name;
+    }
+    if (size === tallCoffee._id) {
+      return tallCoffee.name;
+    }
+  });
 
 
-const coffeeContent = coffeeSizes.map((size) => {
-  if (size === largeCoffee._id) {
-    return largeCoffee.name
-  } if (size === ventiCoffee._id) {
-    return ventiCoffee.name
-  } if (size === tallCoffee._id) {
-    return tallCoffee.name
+  function setMilk() {
+    if (coffeeExtras.includes(milk._id)) {
+      setHasMilk(true);
+    }
   }
-})
-
-
-function setMilk() {
-  if (coffeeExtras.includes(milk._id)) {
-    setHasMilk(true)
+  function setSugar() {
+    if (coffeeExtras.includes(sugar._id)) {
+      setHasSugar(true);
+    }
   }
-}
-function setSugar() {
-  if (coffeeExtras.includes(sugar._id)) {
-    setHasSugar(true)
-  }
-}
 
+  function renderCoffeeItem(itemData) {
+    function onPress() {
+      setSize(itemData.item);
+      navigation.navigate("Extra", {
+        coffeeExtras: coffeeExtras,
+      });
+    }
 
-  function renderCoffeeItem(itemData, index) {
+    const source = allSizes.find((size) => {
+      if (size.name === itemData.item) {
+        return size.icon;
+      }
+    });
+
     return (
       <CoffeeDetail
         content={itemData.item}
-        index={index}
-        onPressHandler={() => {
-          setSize(itemData.item)
-          navigation.navigate("Extra", {
-            coffeeExtras: coffeeExtras,  
-          });
-        }}
+        source={source.icon}
+        onPressHandler={onPress}
       />
     );
   }
@@ -73,7 +94,7 @@ function setSugar() {
         <FlatList
           data={coffeeContent}
           renderItem={renderCoffeeItem}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(index) => index.toString()}
         />
       </View>
     </View>

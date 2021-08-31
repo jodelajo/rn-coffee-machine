@@ -6,12 +6,11 @@ import { List, Divider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function Sugar() {
-  const { sugar, setSelectedSugar, hasMilk, setHasMilk, hasSugar, setHasSugar } = useContext(CoffeeContext);
+  const { sugar, setSelectedSugar, hasSugar } = useContext(CoffeeContext);
   const [expanded, setExpanded] = useState(true);
   const [checkedAlot, setCheckedAlot] = useState(false);
   const [checkedNormal, setCheckedNormal] = useState(false);
-  const [milk, toggleMilk] = useState(hasMilk)
-  const [sugarState, toggleSugarState ] = useState(hasSugar)
+  const [sugarState, toggleSugarState] = useState(hasSugar);
 
   const handlePress = () => {
     setExpanded(!expanded);
@@ -34,32 +33,35 @@ export default function Sugar() {
     }
   });
 
-  console.log('sugarState', sugarState);
-  console.log('checkedNormal', checkedNormal);
-  console.log('checkedAlot', checkedAlot);
-
   function onSelectHandlerAlot() {
     setCheckedAlot(!checkedAlot);
     setCheckedNormal(false);
-    if(sugarState){
-    setSelectedSugar(sugarContent[0])}
-    if(!sugarState) {
-      setSelectedSugar("no sugar")
-      
+    if (sugarState) {
+      setSelectedSugar(sugarContent[0]);
     }
-    toggleSugarState(!sugarState)
+    if (!sugarState) {
+      setSelectedSugar("no sugar");
+      setCheckedAlot(false);
+    }
+    if (checkedAlot) {
+      setSelectedSugar("no sugar");
+    }
   }
+
   function onSelectHandlerNormal() {
     setCheckedNormal(!checkedNormal);
     setCheckedAlot(false);
-    if(sugarState  ){
-      setSelectedSugar(sugarContent[1])}
+    if (sugarState) {
+      setSelectedSugar(sugarContent[1]);
+    }
 
-      if(!sugarState) {
-        setSelectedSugar("no sugar")
+    if (!sugarState) {
+      setSelectedSugar("no sugar");
+    }
+    if (checkedNormal) {
+      setSelectedSugar("no sugar");
+    }
   }
-  toggleSugarState(!sugarState)
-}
 
   return (
     <View style={styles.container}>
@@ -71,7 +73,13 @@ export default function Sugar() {
           onPress={handlePress}
           style={styles.accordion}
           right={(props) => <List.Icon {...props} />}
-          left={(props) => <Image source={require('../assets/sugar_icon.png')} size={46} {...props}/> }
+          left={(props) => (
+            <Image
+              source={require("../assets/sugar_icon.png")}
+              size={46}
+              {...props}
+            />
+          )}
         >
           <Divider style={styles.divider} />
           <List.Item
@@ -133,8 +141,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     letterSpacing: 0.374,
     color: "white",
-
-    // backgroundColor: Colors.green,
   },
   item: {
     color: "white",

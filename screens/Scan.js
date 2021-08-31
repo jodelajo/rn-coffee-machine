@@ -1,30 +1,34 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Alert } from "react-native";
 import MachineSvg from "../components/MachineSvg";
 import Header from "../components/Header";
 
-
 export default function Scan({ navigation }) {
- 
+  function onPressHandler() {
+    Alert.alert(`Press Green Machine`, ``, [{ text: "Good Luck" }], {
+      cancelable: false,
+    });
+  }
+
   return (
     <View style={styles.container}>
-
       <MachineSvg />
-     
-      <Text style={styles.text}>How does this work?</Text>
+
+      <Text style={styles.text} onPress={onPressHandler}>
+        How does this work?
+      </Text>
     </View>
   );
 }
 
 export const screenOptionsScan = (navData) => {
   return {
-    headerTitle: "",
-    
-    header: () => 
-        <Header
-          titleContent={"Dark Roasted Beans"}
-          subTitleContent={"Tab the machine to start"}
-        />
+    header: () => (
+      <Header
+        titleContent={"Dark Roasted Beans"}
+        subTitleContent={"Tab the machine to start"}
+      />
+    ),
   };
 };
 
@@ -39,9 +43,6 @@ const styles = StyleSheet.create({
     paddingLeft: 0,
     marginLeft: 0,
   },
-  button: {
-    flexDirection: "row",
-  },
   text: {
     paddingTop: "5%",
     paddingLeft: 24,
@@ -50,5 +51,8 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: "500",
     fontSize: 16,
+    textDecorationStyle: "solid",
+    textDecorationColor: "black",
+    textDecorationLine: "underline",
   },
 });
