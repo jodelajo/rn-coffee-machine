@@ -24,7 +24,7 @@ The application uses only ContextProvider for state management, no Redux.
 
 ## Packages used
 
-- react-navigation
+- react-navigation 6x
 - axios
 - expo
 - react-native-gesture-handler
