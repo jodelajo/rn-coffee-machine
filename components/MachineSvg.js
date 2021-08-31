@@ -4,7 +4,7 @@ import Svg, { Path, Mask, Rect, G, Defs, ClipPath } from "react-native-svg";
 import { useNavigation } from '@react-navigation/native';
 
 
-export default function MachineSvg({ navigation}) {
+export default function MachineSvg() {
   const altNavigation = useNavigation()
   const originalWidth = 375;
   const originalHeight = 410;

@@ -1,20 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
 import Colors from "../constants/Colors";
 import WhiteText from "../components/WhiteText";
 
-import { CoffeeContext } from "../context/CoffeeContext";
-
-export default function CoffeeDetail({
-  content,
-  onPressHandler,
-  id,
-  sizes,
-  extras,
-}) {
+export default function CoffeeDetail({ content, onPressHandler, source }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.listItem} onPress={onPressHandler}>
+        <Image source={source} />
         <WhiteText content={content} />
       </TouchableOpacity>
     </View>
@@ -27,14 +20,12 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 70,
     marginBottom: 10,
-    alignItems: "flex-start",
     justifyContent: "center",
-    // alignSelf: 'stretch',
-
+    paddingLeft: 8,
     borderRadius: 4,
   },
-  text: {
-    color: "white",
+  listItem: {
+    flexDirection: "row",
+    alignItems: "center",
   },
-  listItem: {},
 });

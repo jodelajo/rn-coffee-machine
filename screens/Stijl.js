@@ -1,38 +1,37 @@
 import React, { useEffect, useContext, useState } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, Platform } from "react-native";
 import SubTitle from "../components/SubTitle";
 import { CoffeeContext } from "../context/CoffeeContext";
 import CoffeeDetail from "../components/CoffeeDetail";
 
-export default function Stijl({ navigation, route }) {
-  const { types, sizes, extras, coffeeTypeHandler, setCoffeeData } =
-    useContext(CoffeeContext);
-  const [coffeeTypes, setCoffeeTypes] = useState([]);
+export default function Stijl({ navigation }) {
+  const {
+    allCoffee,
+    setSelectedCoffee,
+    extraHandler,
+    setHasMilk,
+    setHasSugar,
+  } = useContext(CoffeeContext);
 
-  console.log("types", coffeeTypes);
-  // console.log('sizes', sizes);
-  console.log('size!!',route)
+  const [selectedType, setSelectedType] = useState();
 
   useEffect(() => {
-    setCoffeeTypes(types);
-    setCoffeeData(types)
-  }, []);
+    setSelectedCoffee(selectedType);
+    extraHandler();
+    setHasMilk(false);
+    setHasSugar(false);
+  }, [selectedType]);
 
-
-
-
-  function renderCoffeeItem(itemData, index) {
+  function renderCoffeeItem(itemData) {
     return (
       <CoffeeDetail
         content={itemData.item.name}
+        source={itemData.item.icon}
         onPressHandler={() => {
+          setSelectedType(itemData.item.name);
           navigation.navigate("Size", {
-            coffeeName: itemData.item.name,
-            coffeeId: itemData.item._id,
             coffeeSizes: itemData.item.sizes,
             coffeeExtras: itemData.item.extras,
-            coffeeItem: itemData.item,
-           
           });
         }}
       />
@@ -44,9 +43,9 @@ export default function Stijl({ navigation, route }) {
       <SubTitle content="Select your style" />
       <View style={styles.coffeeDetail}>
         <FlatList
-          data={coffeeTypes}
+          data={allCoffee}
           renderItem={renderCoffeeItem}
-          keyExtractor={(item, index) => item._id}
+          keyExtractor={(item, index) => index.toString()}
         />
       </View>
     </View>
@@ -54,15 +53,22 @@ export default function Stijl({ navigation, route }) {
 }
 
 export const screenOptionsStijl = (navData) => {
-  return {
-    headerTitle: "",
-    headerBackTitle: "Brew with Lex",
-    headerBackTitleStyle: styles.back,
-    headerTintColor: "black",
-    headerStyle: {
-      borderBottomWidth: 0,
-    },
-  };
+  if (Platform.OS === "ios") {
+    return {
+      headerTitle: "",
+      headerBackTitle: "Brew with Lex",
+      headerBackTitleStyle: styles.back,
+      headerTintColor: "black",
+      headerStyle: {
+        borderBottomWidth: 0,
+      },
+    };
+  } else {
+    return {
+      headerTitle: "Brew with Lex",
+      headerTitleStyle: styles.back,
+    };
+  }
 };
 
 const styles = StyleSheet.create({
@@ -76,7 +82,6 @@ const styles = StyleSheet.create({
   },
   coffeeDetail: {
     paddingVertical: 10,
-    // height: 200,
     width: "100%",
   },
   back: {
